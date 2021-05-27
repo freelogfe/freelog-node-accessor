@@ -2,6 +2,7 @@
 // Do not modify this file!!!!!!!!!
 import 'egg';
 import '@midwayjs/web';
+import 'egg-freelog-base';
 import 'egg-onerror';
 import 'egg-session';
 import 'egg-i18n';
@@ -15,6 +16,8 @@ import 'egg-static';
 import 'egg-jsonp';
 import 'egg-view';
 import 'midway-schedule';
+import 'undefined';
+import 'egg-cors';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -31,5 +34,7 @@ declare module 'egg' {
     jsonp?: EggPluginItem;
     view?: EggPluginItem;
     schedulePlus?: EggPluginItem;
+    default?: EggPluginItem;
+    cors?: EggPluginItem;
   }
 }

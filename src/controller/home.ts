@@ -6,7 +6,6 @@ import { Application, Context } from 'egg';
 const mime = require("mime");
 // const publicPath = 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
 
-const publicPath = process.env.NODE_ENV === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
 
 @Provide()
 @Controller('/')
@@ -19,6 +18,7 @@ export class HomeController {
 
   @Get('/')
   async home() {
+    const publicPath = this.app.config.env === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
     const data =  await this.app.curl(publicPath + '/index.html')
     const type = mime.getType(publicPath + '/index.html');
     this.ctx.set("content-type", type);
@@ -28,6 +28,7 @@ export class HomeController {
 
   @Get('/*')
   async static() {
+    const publicPath = this.app.config.env === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
     let url = publicPath  + this.ctx.url
     if(this.ctx.url.indexOf("/freelog-widget") === 0){
       const arr = this.ctx.url.split('/')

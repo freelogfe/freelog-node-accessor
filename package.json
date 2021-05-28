@@ -1,5 +1,5 @@
 {
-  "name": "my-midway-project",
+  "name": "freelog-node-accessor",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -16,6 +16,7 @@
     "egg-freelog-base": "^3.1.17",
     "egg-scripts": "^2.10.0",
     "lodash": "^4.17.21",
+    "midway": "^2.10.19",
     "mime": "^2.5.2"
   },
   "devDependencies": {
@@ -35,7 +36,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --title=my-midway-project --framework=@midwayjs/web",
+    "start": "egg-scripts start --title=freelog-node-accessor --workers=1 --framework=midway",
     "stop": "egg-scripts stop --title=my-midway-project",
     "start_build": "npm run build && cross-env NODE_ENV=development midway-bin dev",
     "dev": "cross-env ets && cross-env NODE_ENV=local midway-bin dev --ts --port 7002",

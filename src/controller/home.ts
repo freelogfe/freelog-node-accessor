@@ -25,9 +25,18 @@ export class HomeController {
     this.ctx.body = data.data;
   }
 
-
+  
   @Get('/*')
   async static() {
+    console.log(this.ctx.url)
+    if(this.ctx.url.indexOf('$freelog') > -1){
+      const publicPath = this.app.config.env === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
+      const data =  await this.app.curl(publicPath + '/index.html')
+      const type = mime.getType(publicPath + '/index.html');
+      this.ctx.set("content-type", type);
+      this.ctx.body = data.data;
+      return 
+    }
     const publicPath = this.app.config.env === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
     let url = publicPath  + this.ctx.url
     if(this.ctx.url.indexOf("/freelog-widget") === 0){
@@ -40,7 +49,6 @@ export class HomeController {
     // const data =  await this.ctx.curlIntranetApi(url, null, CurlResFormatEnum.Original);
     const data =  await this.app.curl(url)
     const type = mime.getType(url);
-
     this.ctx.set("content-type", type);
     this.ctx.body = data.data;
   }

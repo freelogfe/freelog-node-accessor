@@ -19,7 +19,6 @@ export class HomeController {
 
   @Get('/')
   async home() {
-    console.log(this.ctx)
     const data =  await this.app.curl(publicPath + '/index.html')
     const type = mime.getType(publicPath + '/index.html');
     this.ctx.set("content-type", type);

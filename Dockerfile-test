@@ -1,4 +1,4 @@
-FROM node:14.6.0
+FROM node:14.6.0-alpine
 
 MAINTAINER yuliang <yu.liang@freelog.com>
 
@@ -8,7 +8,7 @@ WORKDIR /data/freelog-node-web
 
 COPY . /data/freelog-node-web
 
-RUN npm install
+RUN npm install --production
 
 ENV NODE_ENV test
 ENV EGG_SERVER_ENV test

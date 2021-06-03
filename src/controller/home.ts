@@ -18,7 +18,7 @@ export class HomeController {
 
   @Get('/')
   async home() {
-    const publicPath = this.app.config.env === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
+    const publicPath = this.ctx.publicPath
     const data =  await this.app.curl(publicPath + '/index.html')
     const type = mime.getType(publicPath + '/index.html');
     this.ctx.set("content-type", type);
@@ -28,26 +28,23 @@ export class HomeController {
   
   @Get('/*')
   async static() {
-    console.log(this.ctx.url)
     if(this.ctx.url.indexOf('$freelog') > -1){
-      const publicPath = this.app.config.env === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
+      const publicPath = this.ctx.publicPath
       const data =  await this.app.curl(publicPath + '/index.html')
       const type = mime.getType(publicPath + '/index.html');
       this.ctx.set("content-type", type);
       this.ctx.body = data.data;
       return 
     }
-    const publicPath = this.app.config.env === 'local'? 'http://localhost:3000' : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime'
+    const publicPath = this.ctx.publicPath
     let url = publicPath  + this.ctx.url
     if(this.ctx.url.indexOf("/freelog-widget") === 0){
       const arr = this.ctx.url.split('/')
       const widgetName = arr[2] + '/' + arr[3]
       url = this.ctx.url.replace("/freelog-widget/", '').replace(widgetName, '')
-      const baseUrl = this.ctx.request.header.origin.indexOf('.testfreelog.com') > -1 ? 'http://qi.testfreelog.com/v2' : 'http://qi.freelog.com/v2'
-      url = baseUrl + '/widgets/' + widgetName.replace('/', '-') + url
+      url = this.ctx.baseUrl + '/widgets/' + widgetName.replace('/', '-') + url
     }
-    // const data =  await this.ctx.curlIntranetApi(url, null, CurlResFormatEnum.Original);
-    const data =  await this.app.curl(url)
+    const data =  await this.app.curl(url);
     const type = mime.getType(url);
     this.ctx.set("content-type", type);
     this.ctx.body = data.data;

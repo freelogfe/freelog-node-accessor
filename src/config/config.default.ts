@@ -10,7 +10,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1621911302983_1743';
 
   // add your config here
-  config.middleware = ['errorAutoSnapHandler', 'jwtIdentityInfoHandler'];
+  config.middleware = ['errorAutoSnapHandler', 'jwtIdentityInfoHandler', 'urlMiddleware'];
 
   config.midwayFeature = {
     // true 代表使用 midway logger

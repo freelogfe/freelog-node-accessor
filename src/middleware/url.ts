@@ -17,7 +17,9 @@ export class urlMiddleware implements IWebMiddleware {
       ctx.publicPath =
         this.app.config.env === 'local'
           ? 'http://localhost:3000'
-          : 'https://frcdn.oss-cn-shenzhen.aliyuncs.com/runtime';
+          : ctx.request.header.origin.indexOf('.testfreelog.com') > -1
+          ? `https://freelog-runtime-test.oss-cn-hangzhou.aliyuncs.com`
+          : `https://freelog-runtime.oss-cn-beijing.aliyuncs.com`;
       await next();
     };
   }

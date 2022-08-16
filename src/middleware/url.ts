@@ -18,8 +18,8 @@ export class urlMiddleware implements IWebMiddleware {
         this.app.config.env === 'local'
           ? 'http://localhost:3000'
           : ctx.request.header.origin.indexOf('.testfreelog.com') > -1
-          ? `https://freelog-runtime-test.oss-cn-hangzhou.aliyuncs.com`
-          : `https://freelog-runtime.oss-cn-beijing.aliyuncs.com`;
+          ? `https://runtime-freelog-test.oss-cn-shenzhen.aliyuncs.com`
+          : `https://runtime-freelog.oss-cn-shenzhen.aliyuncs.com`;
       await next();
     };
   }

@@ -8,11 +8,12 @@ export class urlMiddleware implements IWebMiddleware {
   app: Application;
   resolve() {
     return async (ctx: Context, next: IMidwayWebNext) => {
+      console.log(ctx.publicPath, ctx.request.header.origin);
       if (ctx.request.header.origin) {
         ctx.baseUrl =
           ctx.request.header.origin.indexOf('.testfreelog.com') > -1
             ? 'http://qi.testfreelog.com/v2'
-            : 'http://qi.freelog.com/v2';
+            : 'https://qi.freelog.com/v2';
       }
       ctx.publicPath =
         this.app.config.env === 'local'
